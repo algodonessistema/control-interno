@@ -1,15 +1,15 @@
 {
   "name": "control-interno",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sistema de Control Interno para Algodones del Orinoco",
+  "author": "Oxiel @algodonessistema",
+  "license": "MIT",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server --entry-file=dashboard.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.51.0"
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algodonessistema/control-interno"
   }
 }

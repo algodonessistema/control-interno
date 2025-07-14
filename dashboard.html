@@ -2,88 +2,126 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Dashboard | Algodones del Orinoco</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <title>Dashboard | Algodones del Orinoco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-        .sidebar {
-            width: 220px;
-            background-color: #007acc;
-            color: white;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+    header {
+      background-color: #f8fafc;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+    }
 
-        .sidebar h2 {
-            margin-bottom: 30px;
-        }
+    header img {
+      height: 50px;
+    }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
+    header .welcome {
+      font-size: 1rem;
+      color: #333;
+      margin-left: 15px;
+      flex: 1;
+    }
 
-        .sidebar li {
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
+    #logout {
+      background-color: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-        .sidebar li:hover {
-            text-decoration: underline;
-        }
+    .main {
+      display: flex;
+      flex: 1;
+    }
 
-        .content {
-            flex: 1;
-            padding: 30px;
-            background-color: #f4f8fc;
-            box-sizing: border-box;
-        }
+    .sidebar {
+      width: 220px;
+      background-color: #007acc;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-        .section-title {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-    </style>
+    .sidebar h2 {
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .sidebar li:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      background-color: #f4f8fc;
+      box-sizing: border-box;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Encabezado institucional -->
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="public/logo_algodones.png" alt="Logo Algodones del Orinoco" />
+      <div class="welcome" id="bienvenida">Bienvenido, usuario</div>
+    </div>
+    <button id="logout">Salir del sistema</button>
+  </header>
+
+  <div class="main">
     <div class="sidebar">
-        <h2>Algodones</h2>
-        <ul>
-            <li onclick="mostrarModulo('produccion')">Producción</li>
-            <li onclick="mostrarModulo('inventario')">Inventario</li>
-            <li onclick="mostrarModulo('nomina')">Nómina</li>
-            <li onclick="mostrarModulo('compras')">Compras</li>
-            <li onclick="mostrarModulo('ventas')">Ventas</li>
-            <li onclick="mostrarModulo('clientes')">Clientes</li>
-            <li onclick="mostrarModulo('proveedores')">Proveedores</li>
-            <li onclick="mostrarModulo('algodon')">Productores de Algodón</li>
-        </ul>
+      <h2>Algodones</h2>
+      <ul>
+        <li onclick="mostrarModulo('produccion')">Producción</li>
+        <li onclick="mostrarModulo('inventario')">Inventario</li>
+        <li onclick="mostrarModulo('nomina')">Nómina</li>
+        <li onclick="mostrarModulo('compras')">Compras</li>
+        <li onclick="mostrarModulo('ventas')">Ventas</li>
+        <li onclick="mostrarModulo('clientes')">Clientes</li>
+        <li onclick="mostrarModulo('proveedores')">Proveedores</li>
+        <li onclick="mostrarModulo('algodon')">Productores de Algodón</li>
+      </ul>
     </div>
 
     <div class="content" id="modulo-content">
-        <div class="section-title">Bienvenido al sistema</div>
-        <p>Selecciona una opción del menú para comenzar.</p>
+      <div class="section-title">Bienvenido al sistema</div>
+      <p>Selecciona una opción del menú para comenzar.</p>
     </div>
-    
-    <script src="src/dashboard.js"></script>
-    <script>
-        function mostrarModulo(modulo) {
-            const content = document.getElementById('modulo-content');
-            content.innerHTML = `
-        <div class="section-title">${modulo.charAt(0).toUpperCase() + modulo.slice(1)}</div>
-        <p>Aquí irá la funcionalidad CRUD del módulo <strong>${modulo}</strong>.</p>
-      `;
-        }
-    </script>
+  </div>
+
+  <script type="module" src="src/dashboard.js"></script>
 </body>
 
 </html>
