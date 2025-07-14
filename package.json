@@ -1,9 +1,9 @@
 {
-  "name": "control-interno",
-  "version": "1.0.0",
   "description": "Sistema de Control Interno para Algodones del Orinoco",
   "author": "Oxiel @algodonessistema",
   "license": "MIT",
+  "name": "control-interno",
+  "version": "1.0.0",
   "scripts": {
     "start": "live-server --entry-file=dashboard.html"
   },
