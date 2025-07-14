@@ -7,7 +7,9 @@
   "scripts": {
     "start": "live-server --entry-file=dashboard.html"
   },
-  "dependencies": {},
+  "dependencies": {
+    "live-server": "^1.2.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/algodonessistema/control-interno"
