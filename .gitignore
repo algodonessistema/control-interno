@@ -1,0 +1,12 @@
+# Dependencias y compilados
+node_modules/
+dist/
+
+# Archivos sensibles
+.env
+
+# Archivos del sistema/macOS
+.DS_Store
+
+# Configuración local del editor
+.vscode/.env
