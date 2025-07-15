@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Inicio | Algodones del Orinoco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const SUPABASE_URL = "https://yeybjxyamafnnuzetudd.supabase.co"; // Reemplaza con tu URL real
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleWJqeHlhbWFmbm51emV0dWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MjcwMTYsImV4cCI6MjA2ODEwMzAxNn0.T9-q0khsFCK0fqoMFtTQoTvLLE-38NE6Y7HAGYK3UuE"; // Reemplaza con tu clave real
+
+    window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f8fc;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      text-align: center;
+      color: #007acc;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h1>🔐 Acceso Institucional</h1>
+    <form id="loginForm">
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script type="module" src="/src/index.js"></script>
+</body>
+
+</html>

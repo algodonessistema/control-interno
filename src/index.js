@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const emailInput = document.querySelector("input[type='text']");
-    const passwordInput = document.querySelector("input[type='password']");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
     const email = emailInput.value;
     const password = passwordInput.value;
 
@@ -27,10 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // 🔐 Login con Supabase Auth
-      const { data, error } = await window.supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { data, error } = await window.supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
         alert("Credenciales incorrectas o usuario no registrado.");
