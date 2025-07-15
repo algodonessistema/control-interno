@@ -7,8 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
     <script type="module">
         import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-        window.supabase = createClient('https://tu-proyecto.supabase.co', 'tu-clave-publica');
+
+        // Reemplaza tus claves aquí
+        const SUPABASE_URL = "https://yeybjxyamafnnuzetudd.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleWJqeHlhbWFmbm51emV0dWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MjcwMTYsImV4cCI6MjA2ODEwMzAxNn0.T9-q0khsFCK0fqoMFtTQoTvLLE-38NE6Y7HAGYK3UuE";
+
+        window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     </script>
+
     <style>
         body {
             margin: 0;
