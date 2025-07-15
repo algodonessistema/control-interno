@@ -1,6 +1,33 @@
 // dashboard.js
-
 import { supabase } from './supabaseClient.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 🚀 Inicializa saludo al cargar la vista
+  cargarSaludo();
+
+  // 🔐 Botón de logout (cierre de sesión)
+  const logoutBtn = document.getElementById('logout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        alert("✅ Sesión cerrada correctamente");
+        window.location.href = "index.html"; // Vuelve al login
+      } else {
+        alert("❌ No se pudo cerrar sesión.");
+        console.error(error);
+      }
+    });
+  }
+
+  // 🧭 Inicia eventos del menú lateral
+  document.querySelectorAll('.sidebar li').forEach(item => {
+    item.addEventListener('click', () => {
+      const modulo = item.textContent.toLowerCase().replace(/\s/g, '');
+      mostrarModulo(modulo);
+    });
+  });
+});
 
 // 👋 Saludo dinámico al cargar el dashboard
 async function cargarSaludo() {
@@ -23,21 +50,9 @@ async function cargarSaludo() {
     return;
   }
 
-  // 🧑‍💼 Saludo con nombre y rol
   document.getElementById('bienvenida').textContent =
     `👋 Bienvenido, ${perfil.nombre} (${perfil.rol})`;
 }
-
-// 🔐 Botón de logout (cierre de sesión)
-document.getElementById('logout').addEventListener('click', async () => {
-  const { error } = await supabase.auth.signOut();
-  if (!error) {
-    window.location.href = "index.html"; // Vuelve al login
-  } else {
-    alert("No se pudo cerrar sesión.");
-    console.error(error);
-  }
-});
 
 // 🔡 Capitaliza el nombre del módulo
 function capitalizar(texto) {
@@ -55,14 +70,3 @@ function mostrarModulo(modulo) {
 
   // 🔁 Futuro: cargar componentes específicos por módulo aquí
 }
-
-// 🧭 Inicia eventos del menú lateral
-document.querySelectorAll('.sidebar li').forEach(item => {
-  item.addEventListener('click', () => {
-    const modulo = item.textContent.toLowerCase().replace(/\s/g, '');
-    mostrarModulo(modulo);
-  });
-});
-
-// 🚀 Inicializa saludo al cargar la vista
-cargarSaludo();
