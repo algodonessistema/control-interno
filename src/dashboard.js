@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// 👋 Saludo dinámico con último ingreso formateado
+// 👋 Saludo dinámico con verificación de perfil
 async function cargarSaludo() {
   const { data: { user }, error } = await window.supabase.auth.getUser();
   if (error || !user) {
@@ -43,8 +43,39 @@ async function cargarSaludo() {
     .single();
 
   if (perfilError || !perfil) {
-    document.getElementById('bienvenida').textContent = "Bienvenido al sistema";
-    console.error(perfilError);
+    console.warn("⚠️ No se encontró perfil institucional");
+
+    const formularioRegistro = document.getElementById("formulario-registro");
+    if (formularioRegistro) formularioRegistro.style.display = "block";
+
+    const registroForm = document.getElementById("registroPerfil");
+    if (registroForm) {
+      registroForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nuevoPerfil = {
+          id: user.id,
+          nombre: document.getElementById("inputNombre").value,
+          telefono: document.getElementById("inputTelefono").value,
+          rol: document.getElementById("inputRol").value,
+          activo: true,
+          ultimo_ingreso: new Date().toISOString()
+        };
+
+        const { error: upsertError } = await window.supabase
+          .from("usuarios")
+          .upsert(nuevoPerfil);
+
+        if (upsertError) {
+          alert("❌ No se pudo registrar el perfil");
+          console.error(upsertError);
+        } else {
+          alert("✅ Perfil institucional creado correctamente");
+          window.location.reload();
+        }
+      });
+    }
+
     return;
   }
 
