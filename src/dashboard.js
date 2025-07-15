@@ -36,6 +36,10 @@ async function cargarSaludo() {
     return;
   }
 
+  // 🧵 Diagnóstico: mostrar UID en consola
+  console.log("🧵 Auth UID actual:", user.id);
+
+
   const { data: perfil, error: perfilError } = await window.supabase
     .from('usuarios')
     .select('nombre, rol, ultimo_ingreso')
