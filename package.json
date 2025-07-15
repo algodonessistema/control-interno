@@ -8,7 +8,7 @@
     "start": "live-server --entry-file=dashboard.html"
   },
   "dependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.0"
   },
   "repository": {
     "type": "git",
