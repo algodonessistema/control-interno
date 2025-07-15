@@ -1,26 +1,25 @@
 // dashboard.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 🚀 Inicializa saludo al cargar la vista
   cargarSaludo();
+  actualizarUltimoIngreso();
 
-  // 🔐 Botón de logout (cierre de sesión)
+  // 🔐 Botón de logout
   const logoutBtn = document.getElementById('logout');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
       const { error } = await window.supabase.auth.signOut();
       if (!error) {
         alert("✅ Sesión cerrada correctamente");
-        window.location.href = "index.html"; // Vuelve al login
+        window.location.href = "index.html";
       } else {
         alert("❌ No se pudo cerrar sesión.");
         console.error(error);
       }
     });
   }
-  
 
-  // 🧭 Inicia eventos del menú lateral
+  // 🎯 Menú lateral
   document.querySelectorAll('.sidebar li').forEach(item => {
     item.addEventListener('click', () => {
       const modulo = item.textContent.toLowerCase().replace(/\s/g, '');
@@ -29,18 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// 👋 Saludo dinámico al cargar el dashboard
+// 👋 Saludo dinámico con último ingreso formateado
 async function cargarSaludo() {
   const { data: { user }, error } = await window.supabase.auth.getUser();
-
   if (error || !user) {
-    window.location.href = "index.html"; // Redirige si no hay sesión activa
+    window.location.href = "index.html";
     return;
   }
 
   const { data: perfil, error: perfilError } = await window.supabase
     .from('usuarios')
-    .select('nombre, rol')
+    .select('nombre, rol, ultimo_ingreso')
     .eq('id', user.id)
     .single();
 
@@ -50,20 +48,39 @@ async function cargarSaludo() {
     return;
   }
 
+  // ⏱️ Formatear fecha
+  const fecha = perfil.ultimo_ingreso ? new Date(perfil.ultimo_ingreso) : null;
+  let fechaTexto = "";
+  if (fecha) {
+    const opciones = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    fechaTexto = fecha.toLocaleString('es-VE', opciones);
+  }
+
   document.getElementById('bienvenida').textContent =
-    `👋 Bienvenido, ${perfil.nombre} (${perfil.rol})`;
+    `👋 Bienvenido, ${perfil.nombre} (${perfil.rol})${fechaTexto ? ' • Último ingreso: ' + fechaTexto : ''}`;
 }
 
-// 🔡 Capitaliza el nombre del módulo
+// 🕒 Actualiza último ingreso
+async function actualizarUltimoIngreso() {
+  const { data: { user }, error } = await window.supabase.auth.getUser();
+  if (error || !user) return;
+
+  const { error: updateError } = await window.supabase
+    .from("usuarios")
+    .update({ ultimo_ingreso: new Date().toISOString() })
+    .eq("id", user.id);
+
+  if (updateError) console.error("⛔ Error al actualizar 'ultimo_ingreso':", updateError);
+}
+
+// 🔡 Capitaliza módulo
 function capitalizar(texto) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
-// 📦 Muestra el contenido del módulo seleccionado
+// 📦 Carga módulo en vista
 function mostrarModulo(modulo) {
   const content = document.getElementById('modulo-content');
-
-  // 🪄 Transición suave
   content.style.opacity = 0;
   setTimeout(() => {
     content.innerHTML = `
@@ -74,5 +91,4 @@ function mostrarModulo(modulo) {
   }, 200);
 }
 
-// 👉 Expone función para el HTML si se usa desde atributos
 window.mostrarModulo = mostrarModulo;
