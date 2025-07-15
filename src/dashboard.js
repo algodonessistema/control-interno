@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  
 
   // 🧭 Inicia eventos del menú lateral
   document.querySelectorAll('.sidebar li').forEach(item => {

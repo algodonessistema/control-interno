@@ -5,7 +5,7 @@
   "name": "control-interno",
   "version": "1.0.0",
   "scripts": {
-    "start": "live-server --entry-file=dashboard.html"
+    "start": "live-server"
   },
   "dependencies": {
     "live-server": "^1.2.0"
