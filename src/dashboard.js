@@ -1,5 +1,4 @@
 // dashboard.js
-//import { supabase } from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 🚀 Inicializa saludo al cargar la vista

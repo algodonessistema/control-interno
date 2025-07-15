@@ -1,17 +1,4 @@
-document.querySelector("form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const usuario = document.querySelector("input[type='text']").value;
-  const contraseña = document.querySelector("input[type='password']").value;
-
-  if (usuario && contraseña) {
-    // Por ahora, redirige al dashboard localmente
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Por favor completa todos los campos.");
-  }
-});
-
-import { supabase } from './supabaseClient.js';
+//index.js
 
 document.querySelector("form").addEventListener("submit", async function(e) {
   e.preventDefault();
@@ -25,7 +12,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
   }
 
   // 🔐 Login con Supabase Auth
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await window.supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -38,7 +25,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
 
   // ✅ Verificar si el usuario está activo y tiene rol válido
   const { user } = data;
-  const { data: perfil, error: perfilError } = await supabase
+  const { data: perfil, error: perfilError } = await window.supabase
     .from('usuarios')
     .select('rol, activo')
     .eq('id', user.id)
