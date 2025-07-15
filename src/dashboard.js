@@ -1,5 +1,5 @@
 // dashboard.js
-import { supabase } from './supabaseClient.js';
+//import { supabase } from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 🚀 Inicializa saludo al cargar la vista
@@ -70,3 +70,5 @@ function mostrarModulo(modulo) {
 
   // 🔁 Futuro: cargar componentes específicos por módulo aquí
 }
+
+window.mostrarModulo = mostrarModulo;
