@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.getElementById('logout');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await window.supabase.auth.signOut();
       if (!error) {
         alert("✅ Sesión cerrada correctamente");
         window.location.href = "index.html"; // Vuelve al login
@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 👋 Saludo dinámico al cargar el dashboard
 async function cargarSaludo() {
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const { data: { user }, error } = await window.supabase.auth.getUser();
 
   if (error || !user) {
     window.location.href = "index.html"; // Redirige si no hay sesión activa
     return;
   }
 
-  const { data: perfil, error: perfilError } = await supabase
+  const { data: perfil, error: perfilError } = await window.supabase
     .from('usuarios')
     .select('nombre, rol')
     .eq('id', user.id)
@@ -62,12 +62,16 @@ function capitalizar(texto) {
 function mostrarModulo(modulo) {
   const content = document.getElementById('modulo-content');
 
-  content.innerHTML = `
-    <div class="section-title">${capitalizar(modulo)}</div>
-    <p>Aquí irá la funcionalidad CRUD del módulo <strong>${modulo}</strong>.</p>
-  `;
-
-  // 🔁 Futuro: cargar componentes específicos por módulo aquí
+  // 🪄 Transición suave
+  content.style.opacity = 0;
+  setTimeout(() => {
+    content.innerHTML = `
+      <div class="section-title">${capitalizar(modulo)}</div>
+      <p>Aquí irá la funcionalidad CRUD del módulo <strong>${modulo}</strong>.</p>
+    `;
+    content.style.opacity = 1;
+  }, 200);
 }
 
+// 👉 Expone función para el HTML si se usa desde atributos
 window.mostrarModulo = mostrarModulo;
